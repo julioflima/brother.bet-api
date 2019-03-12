@@ -7,6 +7,9 @@ const port = 9001;
 app.use('/birds', require('./src/birds'))
 // app.use('/readable', require('./src/readable'))
 // app.use('/readable', require('./src/readable'))
+// app.use('/readable', require('./src/readable'))
+// app.use('/readable', require('./src/readable'))
+// app.use('/readable', require('./src/readable'))
 
 app.get("/", (req, res) => {
     res.send("Hello te fode!")
