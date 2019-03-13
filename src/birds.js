@@ -8,7 +8,7 @@ router.use(function timeLog (req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-  res.send('Birds home page')
+  res.send('CHUUUUUUUUUUUUPA RAFAEL AGR ERIC É MEEEU MLR AMG')
 })
 // define the about route
 router.get('/about', function (req, res) {
