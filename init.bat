@@ -1,1 +1,1 @@
-powershell -Command "pm2 start index.js --watch"
+START > RUN pm2 start index.js --watch
