@@ -17,7 +17,7 @@ router.post("/", ((req1, res1) => {
             function (callback) {
                 session[require]({ filter: {} }, function (err, res) {
                     if (err) {
-                        console.log('listCountries failed');
+                        console.log('listCountries has  failed');
                     } else {
                         callback(null, res);
                     }
