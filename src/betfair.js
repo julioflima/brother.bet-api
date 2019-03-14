@@ -1,22 +1,44 @@
 const betfair = require('betfair');
 const async = require('async');
-const session = new betfair.BetfairSession('WlyzyQfAXOW76Xr5');
+const express = require('express')
+const security = require('./security');
+const session = new betfair.BetfairSession(security.apiKey);
 
-const name = 'juloko';
-const password = 'h1dr4t4nt3';
+//Declarations.
+var router = express.Router()
 
-var haha = 'getAccountFunds'
-var response;
-
-async.series([login, keepAlive, () => {
-    response = getReadable()
-}, logout], function (err) {
-    console.log(err ? "Error " + err : "Done!");
-    process.exit(0);
-});
+//Define the home page route.
+router.post("/", ((req1, res1) => {
+    var handler = function (cb) {
+        var require = req1.query.funcRead
+        async.series([
+            login,
+            keepAlive,
+            function (callback) {
+                session[require]({ filter: {} }, function (err, res) {
+                    if (err) {
+                        console.log('listCountries failed');
+                    } else {
+                        callback(null, res);
+                    }
+                });
+            },logout
+        ], function (error, results) {
+            cb(error, results)
+        });
+    }
+    handler(function (err, results) {
+        if (!err) {
+            console.log(results);
+            res1.send(results);
+        }else{
+            console.log(err);
+        }
+    })
+}));
 
 function login(callback) {
-    session.login(name, password, function (err, res) {
+    session.login(security.user, security.password, function (err, res) {
         console.log(err ? "Login failed " + err : "Login OK ");
         callback(err, res);
     });
@@ -32,18 +54,18 @@ function keepAlive(callback) {
 function logout(callback) {
     session.logout(function (err, res) {
         console.log(err ? "Logout failed " + err : "Logout OK");
-        console.log(response);
         callback(err, res);
     });
 }
 
-function getReadable() {
-    session[haha]({ filter: {} }, function (err, res) {
+function getReadable(funcRead, callback) {
+    session[require]({ filter: {} }, function (err, res) {
         if (err) {
             console.log('listCountries failed');
         } else {
-            console.log(res)
-            return res;
+            callback(null, res);
         }
     });
 }
+
+module.exports = router

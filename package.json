@@ -1,6 +1,10 @@
 {
     "name": "brother.bet-api",
     "description": "Bother Bet Bot",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon"
+    },
     "dependencies": {
         "async": "2.6.2",
         "betfair": "0.7.8",
@@ -10,7 +14,8 @@
     },
     "devDependencies": {
         "eslint": "^5.12.0",
-        "eslint-plugin-promise": "^4.0.1"
+        "eslint-plugin-promise": "^4.0.1",
+        "nodemon": "^1.18.10"
     },
     "private": true
 }
