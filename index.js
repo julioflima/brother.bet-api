@@ -13,6 +13,6 @@ app.get("/", (req, res) => {
 });
 
 
-https.createServer(options, app).listen(port, () => {
+https.createServer(app).listen(port, () => {
     console.log(`Server listening on port ${port}`)
 });
