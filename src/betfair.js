@@ -9,6 +9,7 @@ var router = express.Router()
 
 //Define the home page route.
 router.post("/", ((req1, res1) => {
+    res1.set("Access-Control-Allow-Origin", "*");
     var handler = function (cb) {
         var require = req1.query.funcRead
         async.series([
