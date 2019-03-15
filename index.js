@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
     res.send("Hello te fode!")
 });
 
-app.listen(port, () => {
+
+https.createServer(app).listen(port, () => {
     console.log(`Server listening on port ${port}`)
 });

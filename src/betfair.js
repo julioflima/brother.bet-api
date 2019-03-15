@@ -3,6 +3,8 @@ const async = require('async');
 const express = require('express')
 const security = require('./security');
 const session = new betfair.BetfairSession(security.apiKey);
+var https = require('https');
+
 
 //Declarations.
 var router = express.Router()
