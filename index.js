@@ -1,5 +1,6 @@
 const express = require("express");
 var https = require('https');
+var fs = require('fs')
 
 const app = express();
 const port = 9001;
@@ -13,6 +14,15 @@ app.get("/", (req, res) => {
 });
 
 
-https.createServer(app).listen(port, () => {
+// https.createServer(app).listen(port, () => {
+//     console.log(`Server listening on port ${port}`)
+// });
+
+https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }, app)
+  .listen(port, () => {
     console.log(`Server listening on port ${port}`)
 });
+
