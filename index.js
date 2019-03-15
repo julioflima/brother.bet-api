@@ -5,7 +5,7 @@ const port = 9001;
 
 //Routers requires and calls.
 app.use('/birds', require('./src/birds'))
-app.use('/betfair', require('./src/betfair'))
+app.use('/readable', require('./src/readable'))
 
 app.get("/", (req, res) => {
     res.send("Hello te fode!")
@@ -19,4 +19,3 @@ app.get("/", (req, res) => {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 });
-
