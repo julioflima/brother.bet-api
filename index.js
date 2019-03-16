@@ -1,15 +1,21 @@
-'use strict';
+const app = require('express')();
+const fs = require('fs')
+const https = require('https')
+const port = 9001;
 
-require('greenlock-express').create({
-  email: 'juliocflima@gmail.com'     // The email address of the ACME user / hosting provider
-, agreeTos: true                    // You must accept the ToS as the host which handles the certs
-, configDir: '~/.config/acme/'      // Writable directory where certs will be saved
-, communityMember: true             // Join the community to get notified of important updates
-, telemetry: true                   // Contribute telemetry data to the project
+//Routers requires and calls.
+app.use('/birds', require('./src/birds'))
+app.use('/readable', require('./src/readable'))
+app.use('/testGetter', require('./src/testGetter'))
 
-  // Using your express app:
-  // simply export it as-is, then include it here
-, app: require('./app.js')
+app.get("/", (req, res) => {
+  res.send("Hello te fode!")
+});
 
-//, debug: true
-}).listen(9001);
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app)
+  .listen(port, () => {
+    console.log(`Server listening on port ${port}`)
+  });
