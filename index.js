@@ -12,10 +12,14 @@ app.get("/", (req, res) => {
   res.send("Hello te fode ae!")
 });
 
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app)
-  .listen(port, () => {
-    console.log(`Server listening on port ${port}`)
-  });
+// https.createServer({
+//   key: fs.readFileSync('server.key'),
+//   cert: fs.readFileSync('server.cert')
+// }, app)
+//   .listen(port, () => {
+//     console.log(`Server listening on port ${port}`)
+//   });
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`)
+});
