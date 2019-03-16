@@ -4,7 +4,6 @@ const express = require('express')
 const security = require('./security');
 const session = new betfair.BetfairSession(security.apiKey);
 
-
 //Declarations.
 var router = express.Router()
 
