@@ -3,9 +3,11 @@ const fs = require('fs')
 const https = require('https')
 const port = 9001;
 
+
 //Routers requires and calls.
 app.use('/birds', require('./src/birds'))
 app.use('/readable', require('./src/readable'))
+app.use('/testRead', require('./src/testRead'))
 app.use('/testGetter', require('./src/testGetter'))
 
 app.get("/", (req, res) => {
