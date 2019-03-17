@@ -18,17 +18,19 @@ router.post("/", ((req, res) => {
     } else {
         result = req.query;
     }
-    let funcRead = result.funcRead;
-    axios.post('https://187.19.164.236:9001/testRead',
-        { 'funcRead': funcRead },
-        {
-            httpsAgent: new https.Agent({
-                rejectUnauthorized: false
-            }),
-        }).then(response => {
-            res.send(funcRead);
-        }).catch(error => {
-            console.log(error);
-        });
+    var require = req.query.funcRead
+    var filtered = JSON.stringify(req.query.filter)
+    var lang = req.query.locale
+    var hereURL = `https://127.0.0.1:9001/readable?funcRead=${require}&filter=${filtered}&locale=${lang}`;
+    var thereURL = `https://187.19.164.236:9001/readable?funcRead=${require}&filter=${filtered}&locale=${lang}`;
+    axios.post(hereURL, {
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        }),
+    }).then(response => {
+        res.send(response.data);
+    }).catch(error => {
+        console.log(error);
+    });
 }));
 module.exports = router

@@ -12,27 +12,32 @@ router.post("/", ((req1, res1) => {
     res1.set("Access-Control-Allow-Origin", "*");
     var handler = function (cb) {
         var require = req1.query.funcRead
+        var filtered = JSON.parse(req1.query.filter.split('/r').join('/'))
+        var filtered = JSON.parse(filtered.split('/r').join('/'))
+        var lang = req1.query.locale || `en`;
         async.series([
             login,
             keepAlive,
             function (callback) {
-                session[require]({ filter: {} }, function (err, res) {
-                    if (err) {
-                        console.log('listCountries has  failed');
-                    } else {
-                        callback(null, res);
-                    }
-                });
-            },logout
+                session[require]({ filter: filtered, locale: lang },
+                    function (err, res) {
+                        if (err) {
+                            console.log(`${require} has  failed`);
+                        } else {
+                            callback(null, res);
+                        }
+                    });
+            }, logout
         ], function (error, results) {
             cb(error, results)
         });
     }
+
     handler(function (err, results) {
         if (!err) {
-            console.log(results);
+            // console.log(results);
             res1.send(results);
-        }else{
+        } else {
             console.log(err);
         }
     })
@@ -56,16 +61,6 @@ function logout(callback) {
     session.logout(function (err, res) {
         console.log(err ? "Logout failed " + err : "Logout OK");
         callback(err, res);
-    });
-}
-
-function getReadable(funcRead, callback) {
-    session[require]({ filter: {} }, function (err, res) {
-        if (err) {
-            console.log('listCountries failed');
-        } else {
-            callback(null, res);
-        }
     });
 }
 
