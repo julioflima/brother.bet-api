@@ -19,18 +19,16 @@ router.post("/", ((req, res) => {
         result = req.query;
     }
     let funcRead = result.funcRead;
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-    axios.post('https://187.19.164.236:9001/birds', {
-        httpsAgent: agent,
-        data: {
-            'funcRead': funcRead
-        }
-    }).then(response => {
-        res.send(funcRead);
-    }).catch(error => {
-        console.log(error);
-    });
+    axios.post('https://187.19.164.236:9001/testRead',
+        { 'funcRead': funcRead },
+        {
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+            }),
+        }).then(response => {
+            res.send(funcRead);
+        }).catch(error => {
+            console.log(error);
+        });
 }));
 module.exports = router
