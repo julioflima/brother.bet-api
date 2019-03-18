@@ -8,7 +8,7 @@ const session = new betfair.BetfairSession(security.apiKey);
 var router = express.Router()
 
 //Define the home page route.
-router.post("/", ((req1, res1) => {
+module.exports = router.post("/", ((req1, res1) => {
     var handler = function (cb) {
         var require = req1.query.funcRead
         async.series([
@@ -67,5 +67,3 @@ function getReadable(funcRead, callback) {
         }
     });
 }
-
-module.exports = router
