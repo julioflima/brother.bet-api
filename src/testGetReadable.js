@@ -11,26 +11,26 @@ router.use(function timeLog(req, res, next) {
     next()
 })
 
-router.post("/", ((req, res) => {
-    var result;
+module.exports = router.post("/", ((req, res) => {
+    res.set("Access-Control-Allow-Origin", "*");
     if (req.query.funcRead === undefined) {
         result = req.body;
     } else {
         result = req.query;
     }
-    var require = req.query.funcRead
-    var filtered = JSON.stringify(req.query.filter)
-    var lang = req.query.locale
+    var require = result.funcRead
+    var filtered = JSON.stringify(result.filter)
+    var lang = result.locale
     var hereURL = `https://127.0.0.1:9001/readable?funcRead=${require}&filter=${filtered}&locale=${lang}`;
     var thereURL = `https://187.19.164.236:9001/readable?funcRead=${require}&filter=${filtered}&locale=${lang}`;
-    axios.post(hereURL, {
-        httpsAgent: new https.Agent({
-            rejectUnauthorized: false
-        }),
-    }).then(response => {
-        res.send(response.data);
-    }).catch(error => {
-        console.log(error);
-    });
+    axios.post(thereURL,
+        {
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+            }),
+        }).then(response => {
+            throw res.send(response.data);
+        }).catch(error => {
+            throw console.log(error);
+        });
 }));
-module.exports = router
