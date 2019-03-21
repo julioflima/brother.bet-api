@@ -4,10 +4,10 @@ const https = require('https')
 const port = 9001;
 
 //Routers requires and calls.
-app.use('/birds', require('./src/birds'))
-app.use('/readable', require('./src/readable'))
-app.use('/testRead', require('./src/testRead'))
-app.use('/testGetReadable', require('./src/testGetReadable'))
+app.use('/birds', require('../functions/routers/test/birds'))
+app.use('/readable', require('./routers/readable'))
+app.use('/testRead', require('../functions/routers/betfair/testRead'))
+app.use('/testGetReadable', require('../functions/routers/test/getReadable'))
 
 app.get("/", (req, res) => {
   res.send("Hello to Brother Bet API!")
