@@ -1,8 +1,6 @@
 const betfair = require('betfair');
 const async = require('async');
 const express = require('express')
-const security = require('./security');
-const session = new betfair.BetfairSession(security.apiKey);
 
 //Declarations.
 var router = express.Router()
@@ -11,13 +9,22 @@ var router = express.Router()
 module.exports = router.post("/", ((req1, res1) => {
     res1.set("Access-Control-Allow-Origin", "*");
     var handler = function (cb) {
+        var email = req1.query.email
+        var password = req1.query.password
+        var apiKey = req1.query.apiKey
         var require = req1.query.funcRead
         var filtered = JSON.parse(req1.query.filter.split('/r').join('/'))
         var filtered = JSON.parse(filtered.split('/r').join('/'))
         var lang = req1.query.locale || `en`;
+        const session = new betfair.BetfairSession(apiKey);
         async.series([
-            login,
-            keepAlive,
+            function (callback) {
+                session.login(email, password, function (err, res) {
+                    console.log(err ? "Login failed " + err : "Login OK ");
+                    callback(err, res);
+                });
+            },
+            //keepAlive,
             function (callback) {
                 session[require]({ filter: filtered, locale: lang },
                     function (err, res) {
