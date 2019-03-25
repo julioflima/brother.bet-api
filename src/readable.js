@@ -1,6 +1,7 @@
 const betfair = require('betfair');
 const async = require('async');
 const express = require('express')
+var session;
 
 //Declarations.
 var router = express.Router()
@@ -16,15 +17,16 @@ module.exports = router.post("/", ((req1, res1) => {
         var filtered = JSON.parse(req1.query.filter.split('/r').join('/'))
         var filtered = JSON.parse(filtered.split('/r').join('/'))
         var lang = req1.query.locale || `en`;
-        const session = new betfair.BetfairSession(apiKey);
+        session = new betfair.BetfairSession(apiKey);
         async.series([
             function (callback) {
+                console.log(email,password,apiKey)
                 session.login(email, password, function (err, res) {
                     console.log(err ? "Login failed " + err : "Login OK ");
                     callback(err, res);
                 });
             },
-            //keepAlive,
+            keepAlive,
             function (callback) {
                 session[require]({ filter: filtered, locale: lang },
                     function (err, res) {
