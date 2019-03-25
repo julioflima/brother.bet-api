@@ -48,6 +48,7 @@ module.exports = router.post("/", ((req1, res1) => {
             res1.send(results);
         } else {
             console.log(err);
+            res1.send(err);
         }
     })
 }));
