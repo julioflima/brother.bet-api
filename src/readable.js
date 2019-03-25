@@ -20,7 +20,7 @@ module.exports = router.post("/", ((req1, res1) => {
         session = new betfair.BetfairSession(apiKey);
         async.series([
             function (callback) {
-                console.log(email,password,apiKey)
+                //console.log(email, password, apiKey)
                 session.login(email, password, function (err, res) {
                     console.log(err ? "Login failed " + err : "Login OK ");
                     callback(err, res);
